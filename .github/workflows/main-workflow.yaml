@@ -65,7 +65,8 @@ jobs:
       - name: Unit Testing in Docker
         run: docker run --rm ghcr.io/ballen2713/docker-ci-automation:"$GITHUB_RUN_ID" echo "run test commands here"
 
-# NEXT JOB #######################################################################   
+# NEXT JOB #######################################################################  
+#### Curently not working ##### 
   test-integration:
     name: Integration tests in Compose
     needs: [build-test-image]

@@ -11,7 +11,8 @@ services:
     volumes:
       - ./healthchecks:/healthchecks
     healthcheck:
-      test: /healthchecks/postgres-healthcheck
+      #test: /healthchecks/postgres-healthcheck
+      test: ["CMD-SHELL", "pg_isready"]
       interval: "5s"
   sut:
     image: "${TESTING_IMAGE}"
