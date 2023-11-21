@@ -12,10 +12,6 @@ jobs:
     name: Build Images
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-
     steps:
 
       - name: Checkout git repo
@@ -43,30 +39,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
-          
-      - name: Run Trivy for all CVEs (non-blocking)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ github.run_id }}
-          format: table 
-          exit-code: 0
 
-      - name: Run Trivy for HIGH,CRITICAL CVEs and report (blocking)
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ github.run_id }}
-          exit-code: 1
-          ignore-unfixed: true
-          vuln-type: 'os,library'
-          severity: 'HIGH,CRITICAL'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-      
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
 #NEW: (START) ############################################################  
         # for more advanced tests, use docker compose with `depends_on`
           # NOTE: GHA and other CIs can also run dependency containers on their own
@@ -82,7 +55,7 @@ jobs:
         id: docker_meta
         uses: docker/metadata-action@v5
         with:
-          images: ballen19/docker-ci-automation
+          images: bretfisher/docker-ci-automation
           flavor: |
             latest=false
           tags: |
