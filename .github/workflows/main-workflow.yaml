@@ -109,7 +109,7 @@ jobs:
             --docker-server=https://ghcr.io \
             --docker-username=${{ github.actor }} \
             --docker-password=${{ secrets.GITHUB_TOKEN }}
-          export TESTING_IMAGE=ghcr.io/bretfisher/docker-ci-automation:"$GITHUB_RUN_ID"
+          export TESTING_IMAGE=ghcr.io/Ballen2713/docker-ci-automation:"$GITHUB_RUN_ID"
           envsubst < manifests/deployment.yaml  | kubectl apply -f -
           kubectl rollout status deployment myapp
           kubectl exec deploy/myapp -- curl --fail localhost
