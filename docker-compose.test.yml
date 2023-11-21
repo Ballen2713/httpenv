@@ -3,7 +3,7 @@ services:
     image: "${TESTING_IMAGE}"
   
   postgres:
-    image: postgres:14.3
+    image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
