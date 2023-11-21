@@ -12,7 +12,7 @@ args=(
 	--username="$user"
 	--password="$pwd"
 	--dbname="$db"
-	--quiet --no-align --tuples-only
+	--no-align --tuples-only
 )
 
 if select="$(echo 'SELECT 1' | psql "${args[@]}")" && [ "$select" = '1' ]; then
